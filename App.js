@@ -1,11 +1,16 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import Header from './src/components/Header';
+import {globalStyles} from './src/styles/styles';
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Hello World!!!</Text>
-    </View>
+    <>
+      <Header />
+      <View style={globalStyles.container}>
+        <Text style={styles.text}>Hello World!!!</Text>
+      </View>
+    </>
   );
 };
 
@@ -19,5 +24,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 25,
+    color: 'white',
   },
 });
