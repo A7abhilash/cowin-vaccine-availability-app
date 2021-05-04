@@ -20,7 +20,7 @@ export default function BottomTabs({findBy, setFindBy, FIND_BY}) {
         color={globalColors.Secondary}
         onPress={() => setFindBy(FIND_BY.DISTRICT)}
         disabled={findBy === FIND_BY.DISTRICT}>
-        Find by districts
+        Find by district
       </Button>
     </View>
   );
@@ -30,9 +30,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingTop: 5,
-    borderTopColor: globalColors.Gray,
-    borderTopWidth: 1,
   },
   bottomBtns: {
     justifyContent: 'center',
