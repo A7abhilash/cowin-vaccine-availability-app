@@ -14,6 +14,7 @@ import Loading from './src/containers/Loading';
 import Error from './src/containers/Error';
 import SelectDate from './src/containers/SelectDate';
 import {globalColors, globalStyles} from './src/styles/styles';
+import DisplayVaccineSlotsList from './src/components/DisplayVaccineSlotsList';
 
 const FIND_BY = {
   PIN: 'find-by-pin',
@@ -97,11 +98,13 @@ const App = () => {
           </Button>
         </View>
         <View style={styles.midView}>
-          <Text style={styles.text}>Hello World!!!</Text>
           <View style={{marginVertical: 10}}>
             {loading && <Loading />}
-            {error && <Error />}
+            {error && <Error msg="Server Error, Please try later..." />}
           </View>
+          {vaccineSlots !== null && (
+            <DisplayVaccineSlotsList vaccineSlots={vaccineSlots} />
+          )}
         </View>
         <View style={styles.bottomView}>
           <BottomTabs findBy={findBy} setFindBy={setFindBy} FIND_BY={FIND_BY} />
@@ -118,8 +121,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: 'white',
   },
-  // topView: {flex: 0.3},
-
   midView: {
     flex: 1,
     borderTopColor: globalColors.Gray,

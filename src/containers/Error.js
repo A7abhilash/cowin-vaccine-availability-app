@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {Badge} from 'react-native-paper';
 
-export default function Error() {
+export default function Error({msg}) {
   return (
     <View
       style={{
@@ -10,7 +10,7 @@ export default function Error() {
         justifyContent: 'center',
       }}>
       <Badge size={30} style={{fontSize: 16}}>
-        Server Error!
+        {msg}
       </Badge>
     </View>
   );
