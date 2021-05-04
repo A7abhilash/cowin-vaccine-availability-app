@@ -10,8 +10,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "moment": "^2.29.1",
     "react": "17.0.1",
-    "react-native": "0.64.0"
+    "react-native": "0.64.0",
+    "react-native-date-picker": "^3.2.10",
+    "react-native-paper": "^4.8.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
