@@ -16,9 +16,19 @@ export default function VaccineSlot({slot}) {
             <Text style={styles.subtitle}>{slot.address}</Text>
           </Card.Content>
           <View style={styles.badge}>
-            <Badge size={24} style={styles.text}>
-              {slot.fee_type}
-            </Badge>
+            {slot.fee_type === 'Free' ? (
+              <Badge size={24} style={styles.free}>
+                Free
+              </Badge>
+            ) : (
+              <>
+                {slot.vaccine_fees?.map(({vaccine, fee}) => (
+                  <Badge size={24} style={styles.paid}>
+                    {vaccine}: ₹{fee}
+                  </Badge>
+                ))}
+              </>
+            )}
           </View>
         </Card>
       </TouchableOpacity>
@@ -44,8 +54,12 @@ const styles = StyleSheet.create({
     color: globalColors.Light,
     ...globalStyles.textSubTitle,
   },
-  text: {
-    color: globalColors.Light,
-    fontSize: 16,
+  free: {
+    backgroundColor: globalColors.Success,
+    fontSize: 12,
+  },
+  paid: {
+    color: globalColors.Dark,
+    fontSize: 12,
   },
 });
