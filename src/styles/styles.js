@@ -13,10 +13,11 @@ const globalStyles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   textTitle: {
-    fontSize: 30,
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   textSubTitle: {
-    fontSize: 18,
+    fontSize: 14,
   },
 });
 
