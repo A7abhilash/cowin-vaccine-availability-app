@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button, Modal, StyleSheet, Text, View} from 'react-native';
+import {Badge} from 'react-native-paper';
 // import {} from 'react-native-paper';
 import {globalColors, globalStyles} from '../styles/styles';
 import DisplaySessionSlotsList from './DisplaySessionSlotsList';
@@ -30,6 +31,25 @@ export default function VaccineSlotDetails({openModal, setOpenModal, slot}) {
           <DisplayData name="Address" value={slot.address} />
           <DisplayData name="Pincode" value={slot.pincode} />
           <DisplayData name="District Name" value={slot.district_name} />
+          <View style={styles.horizontalView}>
+            <Text style={styles.title}>Fees:</Text>
+            {slot.fee_type === 'Free' ? (
+              <Badge key={new Date().getTime()} size={24} style={styles.free}>
+                Free
+              </Badge>
+            ) : (
+              <>
+                {slot.vaccine_fees?.map(({vaccine, fee}) => (
+                  <Badge
+                    key={new Date().getTime()}
+                    size={24}
+                    style={styles.paid}>
+                    {vaccine}: ₹{fee}
+                  </Badge>
+                ))}
+              </>
+            )}
+          </View>
         </View>
         <View style={styles.bottomView}>
           <Text style={{color: globalColors.Info, fontSize: 24}}>
@@ -51,6 +71,7 @@ const styles = StyleSheet.create({
     color: globalColors.Light,
     marginLeft: 10,
     ...globalStyles.textTitle,
+    flexShrink: 1,
   },
   topHeaderText: {
     fontSize: 26,
@@ -73,6 +94,16 @@ const styles = StyleSheet.create({
     padding: 5,
     borderBottomColor: globalColors.Secondary,
     borderBottomWidth: 1,
+  },
+  free: {
+    backgroundColor: globalColors.Success,
+    fontSize: 12,
+    marginLeft: 5,
+  },
+  paid: {
+    color: globalColors.Dark,
+    fontSize: 12,
+    marginLeft: 5,
   },
   bottomView: {
     paddingVertical: 5,

@@ -15,7 +15,7 @@ export default function VaccineSlot({slot}) {
             <Text style={styles.title}>{slot.name}</Text>
             <Text style={styles.subtitle}>{slot.address}</Text>
           </Card.Content>
-          <View style={styles.badge}>
+          <View>
             {slot.fee_type === 'Free' ? (
               <Badge size={24} style={styles.free}>
                 Free
