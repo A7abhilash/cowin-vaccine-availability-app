@@ -111,7 +111,7 @@ const App = () => {
           </Button>
         </View>
         <View style={styles.midView}>
-          <View style={{marginVertical: 10}}>
+          <View style={{marginTop: 10}}>
             {loading && <Loading />}
             {error && <Error msg="Server Error, Please try later..." />}
           </View>
@@ -138,7 +138,6 @@ const styles = StyleSheet.create({
     flex: 1,
     borderTopColor: globalColors.Gray,
     borderTopWidth: 1,
-    paddingTop: 5,
   },
   bottomView: {
     flex: 0.1,

@@ -19,7 +19,17 @@ export default function SessionSlot({slot}) {
         <DisplayData name="Min. Age Limit" value={`${slot.min_age_limit}+`} />
         <View style={styles.horizontalView}>
           <Text style={styles.title}>Capacity Available:</Text>
-          <Text style={{...styles.textRight}}>{slot.available_capacity}</Text>
+          <Text
+            style={{
+              ...styles.textRight,
+              color:
+                slot.available_capacity === 0
+                  ? globalColors.Danger
+                  : globalColors.Success,
+              fontWeight: 'bold',
+            }}>
+            {slot.available_capacity}
+          </Text>
         </View>
         <FlatList
           horizontal
@@ -30,7 +40,7 @@ export default function SessionSlot({slot}) {
               style={styles.chip}
               textStyle={{
                 fontSize: 12,
-                color: globalColors.Info,
+                color: globalColors.Light,
               }}>
               {item}
             </Chip>

@@ -7,7 +7,7 @@ import {globalColors} from '../styles/styles';
 export default function DisplayVaccineSlotsList({vaccineSlots}) {
   return vaccineSlots.length ? (
     <>
-      <Text style={{color: globalColors.Success, fontSize: 24}}>
+      <Text style={{color: globalColors.Info, fontSize: 24}}>
         Vaccine Centers ({vaccineSlots.length})
       </Text>
       <FlatList

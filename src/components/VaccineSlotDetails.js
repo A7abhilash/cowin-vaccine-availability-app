@@ -32,7 +32,7 @@ export default function VaccineSlotDetails({openModal, setOpenModal, slot}) {
           <DisplayData name="District Name" value={slot.district_name} />
         </View>
         <View style={styles.bottomView}>
-          <Text style={{color: globalColors.Success, fontSize: 24}}>
+          <Text style={{color: globalColors.Info, fontSize: 24}}>
             Slots ({slot.sessions.length})
           </Text>
           <DisplaySessionSlotsList sessionSlots={slot.sessions} />

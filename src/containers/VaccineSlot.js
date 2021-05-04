@@ -17,7 +17,7 @@ export default function VaccineSlot({slot}) {
           </Card.Content>
           <View style={styles.badge}>
             <Badge size={24} style={styles.text}>
-              {slot.fee_type === 'Free' ? 'Free' : slot.fee}
+              {slot.fee_type}
             </Badge>
           </View>
         </Card>
