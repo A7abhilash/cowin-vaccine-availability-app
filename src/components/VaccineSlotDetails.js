@@ -1,7 +1,8 @@
 import React from 'react';
-import {Modal, StyleSheet, Text, View} from 'react-native';
-import {Button} from 'react-native-paper';
+import {Button, Modal, StyleSheet, Text, View} from 'react-native';
+// import {} from 'react-native-paper';
 import {globalColors, globalStyles} from '../styles/styles';
+import DisplaySessionSlotsList from './DisplaySessionSlotsList';
 
 const DisplayData = ({name, value}) => (
   <View style={styles.horizontalView}>
@@ -15,16 +16,14 @@ export default function VaccineSlotDetails({openModal, setOpenModal, slot}) {
     <Modal visible={openModal} animationType="slide">
       <View style={globalStyles.component}>
         <View style={styles.topView}>
-          <Text
-            style={{...globalStyles.textTitle, color: globalColors.Primary}}>
-            Vaccine Slot Details
-          </Text>
-          <Button
-            color={globalColors.Warning}
-            onPress={() => setOpenModal(false)}
-            style={{marginLeft: 'auto', marginRight: 5}}>
-            Close
-          </Button>
+          <Text style={styles.topHeaderText}>Vaccine Slot Details</Text>
+          <View style={{marginLeft: 'auto', marginRight: 5}}>
+            <Button
+              color={globalColors.Danger}
+              onPress={() => setOpenModal(false)}
+              title="Close"
+            />
+          </View>
         </View>
         <View style={styles.midView}>
           <DisplayData name="Center Name" value={slot.name} />
@@ -33,7 +32,10 @@ export default function VaccineSlotDetails({openModal, setOpenModal, slot}) {
           <DisplayData name="District Name" value={slot.district_name} />
         </View>
         <View style={styles.bottomView}>
-          <Text style={{color: globalColors.Info, fontSize: 24}}>Slots</Text>
+          <Text style={{color: globalColors.Success, fontSize: 24}}>
+            Slots ({slot.sessions.length})
+          </Text>
+          <DisplaySessionSlotsList sessionSlots={slot.sessions} />
         </View>
       </View>
     </Modal>
@@ -50,9 +52,13 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     ...globalStyles.textTitle,
   },
+  topHeaderText: {
+    fontSize: 26,
+    color: globalColors.Primary,
+  },
   title: {
     fontSize: 16,
-    color: globalColors.Success,
+    color: globalColors.Warning,
     ...globalStyles.textTitle,
   },
   topView: {
@@ -70,5 +76,6 @@ const styles = StyleSheet.create({
   },
   bottomView: {
     paddingVertical: 5,
+    flex: 1,
   },
 });
