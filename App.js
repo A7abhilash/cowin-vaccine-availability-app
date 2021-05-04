@@ -10,6 +10,8 @@ import BottomTabs from './src/components/BottomTabs';
 import FindByDistrict from './src/components/FindByDistrict';
 import FindByPin from './src/components/FindByPin';
 import Header from './src/components/Header';
+import Loading from './src/containers/Loading';
+import Error from './src/containers/Error';
 import SelectDate from './src/containers/SelectDate';
 import {globalColors, globalStyles} from './src/styles/styles';
 
@@ -23,6 +25,9 @@ const App = () => {
   const [date, setDate] = useState(new Date());
   const [pincode, setPincode] = useState('');
   const [districtId, setDistrictId] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [vaccineSlots, setVaccineSlots] = useState(null);
 
   useEffect(() => {
     // console.log(findBy);
@@ -35,21 +40,36 @@ const App = () => {
 
   const findVaccines = async () => {
     let formattedDate = moment(date).format('DD-MM-YYYY');
-    console.log(formattedDate);
-    console.log(pincode);
-    // if (findBy === FIND_BY.PIN) {
-    // if (!pincode) return alertEmptyFields();
-    //   const {vaccineSlots, loading, error} = await fetchVaccineSlotsByPincode(
-    //     pincode,
-    //     formattedDate,
-    //   );
-    // } else {
-    // if (!districtId) return alertEmptyFields();
-    //   const {vaccineSlots, loading, error} = await fetchVaccineSlotsByDistrict(
-    //     districtId,
-    //     formattedDate,
-    //   );
-    // }
+    // console.log(formattedDate);
+    // console.log(pincode);
+
+    try {
+      setLoading(true);
+      setError(false);
+      if (findBy === FIND_BY.PIN) {
+        if (!pincode) {
+          return alertEmptyFields();
+        }
+        const {data} = await fetchVaccineSlotsByPincode(pincode, formattedDate);
+        // console.log(data);
+        setVaccineSlots(data);
+      } else {
+        if (!districtId) {
+          return alertEmptyFields();
+        } //562106
+        const {data} = await fetchVaccineSlotsByDistrict(
+          districtId,
+          formattedDate,
+        );
+        console.log(data);
+        setVaccineSlots(data);
+      }
+    } catch (error) {
+      console.log(error);
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const alertEmptyFields = () => {
@@ -78,6 +98,10 @@ const App = () => {
         </View>
         <View style={styles.midView}>
           <Text style={styles.text}>Hello World!!!</Text>
+          <View style={{marginVertical: 10}}>
+            {loading && <Loading />}
+            {error && <Error />}
+          </View>
         </View>
         <View style={styles.bottomView}>
           <BottomTabs findBy={findBy} setFindBy={setFindBy} FIND_BY={FIND_BY} />
