@@ -74,11 +74,11 @@ const App = () => {
           district.district_id,
           formattedDate,
         );
-        console.log(data);
+        // console.log(data);
         setVaccineSlots(data);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
       setError(true);
     } finally {
       setLoading(false);
