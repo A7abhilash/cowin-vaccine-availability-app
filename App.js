@@ -1,8 +1,9 @@
 import moment from 'moment';
 import React, {useEffect, useState} from 'react';
-import {Alert, StyleSheet, Text, View} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
 import {Button} from 'react-native-paper';
 import {
+  fetchStates,
   fetchVaccineSlotsByDistrict,
   fetchVaccineSlotsByPincode,
 } from './src/api/fetchApi';
@@ -25,26 +26,37 @@ const App = () => {
   const [findBy, setFindBy] = useState(FIND_BY.PIN);
   const [date, setDate] = useState(new Date());
   const [pincode, setPincode] = useState('');
-  const [districtId, setDistrictId] = useState('');
+  const [district, setDistrict] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [vaccineSlots, setVaccineSlots] = useState(null);
+  const [states, setStates] = useState(null);
+
+  useEffect(() => {
+    fetchStates().then(data => {
+      setStates(data);
+    });
+  }, []);
 
   useEffect(() => {
     // console.log(findBy);
     if (findBy === FIND_BY.PIN) {
-      setDistrictId('');
+      setDistrict('');
     } else {
       setPincode('');
     }
+    setVaccineSlots(null);
+    setLoading(false);
+    setError(false);
   }, [findBy]);
 
   const findVaccines = async () => {
     let formattedDate = moment(date).format('DD-MM-YYYY');
     // console.log(formattedDate);
-    // console.log(pincode);
+    // console.log(district);
 
     try {
+      setVaccineSlots(null);
       setLoading(true);
       setError(false);
       if (findBy === FIND_BY.PIN) {
@@ -55,11 +67,11 @@ const App = () => {
         // console.log(data);
         setVaccineSlots(data);
       } else {
-        if (!districtId) {
+        if (!district) {
           return alertEmptyFields();
         } //562106
         const {data} = await fetchVaccineSlotsByDistrict(
-          districtId,
+          district.district_id,
           formattedDate,
         );
         console.log(data);
@@ -88,12 +100,13 @@ const App = () => {
             <FindByPin pincode={pincode} setPincode={setPincode} />
           ) : (
             <FindByDistrict
-              districtId={districtId}
-              setDistrictId={setDistrictId}
+              district={district}
+              setDistrict={setDistrict}
+              states={states}
             />
           )}
           <SelectDate date={date} setDate={setDate} />
-          <Button onPress={findVaccines} color={globalColors.Info}>
+          <Button onPress={findVaccines} color={globalColors.Success}>
             Find vaccines
           </Button>
         </View>

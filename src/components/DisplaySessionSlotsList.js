@@ -1,7 +1,7 @@
 import React from 'react';
 import {FlatList} from 'react-native';
 import Error from '../containers/Error';
-import SessionSlot from './SessionSlot';
+import SessionSlot from '../containers/SessionSlot';
 
 export default function DisplaySessionSlotsList({sessionSlots}) {
   return sessionSlots.length ? (
