@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Badge, Card} from 'react-native-paper';
+import VaccineSlotDetails from '../components/VaccineSlotDetails';
 import {globalColors, globalStyles} from '../styles/styles';
 
 export default function VaccineSlot({slot}) {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => setOpenModal(true)}>
         <Card style={styles.card}>
           <Card.Content>
             <Text style={styles.title}>{slot.name}</Text>
@@ -19,6 +22,11 @@ export default function VaccineSlot({slot}) {
           </View>
         </Card>
       </TouchableOpacity>
+      <VaccineSlotDetails
+        slot={slot}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />
     </>
   );
 }
