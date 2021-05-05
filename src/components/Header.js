@@ -16,6 +16,6 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   appbar: {
-    backgroundColor: globalColors.Gray,
+    backgroundColor: globalColors.Dark,
   },
 });
