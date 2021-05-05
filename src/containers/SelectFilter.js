@@ -7,9 +7,8 @@ export default function SelectFilter({selectedFilter, setSelectedFilter}) {
   return filters.map(filter => (
     <TouchableOpacity
       key={filter}
-      onPress={
-        filter === selectedFilter ? '' : () => setSelectedFilter(filter)
-      }>
+      onPress={() => setSelectedFilter(filter)}
+      disabled={filter === selectedFilter}>
       <Text
         style={
           filter === selectedFilter ? styles.selected : styles.notSelected

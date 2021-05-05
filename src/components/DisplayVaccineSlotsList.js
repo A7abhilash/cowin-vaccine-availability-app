@@ -12,8 +12,11 @@ export default function DisplayVaccineSlotsList({vaccineSlots}) {
       </Text>
       <FlatList
         data={vaccineSlots}
-        keyExtractor={(item, index) => `${item}${index}`}
+        keyExtractor={(item, index) => `${item.centre_id}${index}`}
         renderItem={({item}) => <VaccineSlot slot={item} />}
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
+        updateCellsBatchingPeriod={100}
       />
     </>
   ) : (

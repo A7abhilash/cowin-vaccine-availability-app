@@ -23,7 +23,7 @@ export default function SelectStateModal({
         <View style={styles.innerView}>
           <ScrollView contentContainerStyle={styles.displayStates}>
             {states.map(item =>
-              item.state_name === selectedState.state_name ? (
+              item.state_name === selectedState?.state_name ? (
                 <TouchableOpacity key={item.state_id} style={styles.selected}>
                   <Text
                     style={{

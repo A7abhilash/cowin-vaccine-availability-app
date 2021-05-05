@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {fetchDistricts} from '../api/fetchApi';
-import SelectDistrictModal from '../containers/SelectDistrictmodal';
+import SelectDistrictModal from '../containers/SelectDistrictModal';
 import SelectStateModal from '../containers/SelectStateModal';
 import {globalColors, globalStyles} from '../styles/styles';
 
@@ -35,7 +35,7 @@ export default function FindByDistrict({district, setDistrict, states}) {
           <TouchableOpacity
             onPress={() => setOpenStateModal(true)}
             style={styles.textRight}>
-            <Text style={styles.textRight}>{selectedState.state_name}</Text>
+            <Text style={styles.textRight}>{selectedState?.state_name}</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -49,7 +49,7 @@ export default function FindByDistrict({district, setDistrict, states}) {
           <TouchableOpacity
             onPress={() => setOpenDistrictModal(true)}
             style={styles.textRight}>
-            <Text style={styles.textRight}>{district.district_name}</Text>
+            <Text style={styles.textRight}>{district?.district_name}</Text>
           </TouchableOpacity>
         )}
       </View>
