@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <Appbar.Header style={styles.appbar}>
       <Appbar.Content
-        title="CoWIN Vaccine Availability 🇮🇳"
+        title="Find CoWIN Availability 🇮🇳"
         subtitle="Stay Home, Stay Safe, Get Vaccinated!"
       />
     </Appbar.Header>

@@ -46,6 +46,7 @@ export default function SessionSlot({slot}) {
             </Chip>
           )}
           style={{marginTop: 5, paddingBottom: 5}}
+          showsHorizontalScrollIndicator={false}
         />
       </Card.Content>
     </Card>

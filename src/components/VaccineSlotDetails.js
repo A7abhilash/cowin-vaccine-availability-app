@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {
-  Button,
+  TouchableOpacity,
   Modal,
+  ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import {Badge} from 'react-native-paper';
 import SelectFilter from '../containers/SelectFilter';
-// import {} from 'react-native-paper';
 import {globalColors, globalStyles} from '../styles/styles';
 import DisplaySessionSlotsList from './DisplaySessionSlotsList';
 
@@ -36,59 +35,68 @@ export default function VaccineSlotDetails({openModal, setOpenModal, slot}) {
         slot.sessions?.filter(item => item.min_age_limit === 45),
       );
     }
-  }, [selectedFilter]);
+  }, [selectedFilter, slot?.sessions]);
 
   return (
     <Modal visible={openModal} animationType="slide">
       <View style={globalStyles.component}>
         <View style={styles.topView}>
           <Text style={styles.topHeaderText}>Vaccine Slot Details</Text>
-          <View style={{marginLeft: 'auto', marginRight: 5}}>
-            <Button
-              color={globalColors.Danger}
-              onPress={() => setOpenModal(false)}
-              title="Close"
-            />
-          </View>
+          <TouchableOpacity
+            onPress={() => setOpenModal(false)}
+            style={styles.btnClose}>
+            <Text>Close</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.midView}>
-          <DisplayData name="Center Name" value={slot.name} />
-          <DisplayData name="Address" value={slot.address} />
-          <DisplayData name="Pincode" value={slot.pincode} />
-          <DisplayData name="District Name" value={slot.district_name} />
-          <View style={styles.horizontalView}>
-            <Text style={styles.title}>Fees:</Text>
-            {slot.fee_type === 'Free' ? (
-              <Badge key={new Date().getTime()} size={24} style={styles.free}>
-                Free
-              </Badge>
-            ) : (
-              <>
-                {slot.vaccine_fees?.map(({vaccine, fee}) => (
-                  <Badge
-                    key={new Date().getTime()}
-                    size={24}
-                    style={styles.paid}>
-                    {vaccine}: ₹{fee}
-                  </Badge>
-                ))}
-              </>
-            )}
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.midView}>
+            <DisplayData name="Center Name" value={slot.name} />
+            <DisplayData name="Address" value={slot.address} />
+            <DisplayData name="Pincode" value={slot.pincode} />
+            <DisplayData name="District Name" value={slot.district_name} />
+            <View style={styles.horizontalView}>
+              <Text style={styles.title}>Fees:</Text>
+              {slot.fee_type === 'Free' ? (
+                <Badge key={new Date().getTime()} size={24} style={styles.free}>
+                  Free
+                </Badge>
+              ) : (
+                <>
+                  {slot.vaccine_fees?.length ? (
+                    slot.vaccine_fees?.map(({vaccine, fee}) => (
+                      <Badge
+                        key={new Date().getTime()}
+                        size={24}
+                        style={styles.paid}>
+                        {vaccine}: ₹{fee}
+                      </Badge>
+                    ))
+                  ) : (
+                    <Badge
+                      key={new Date().getTime()}
+                      size={24}
+                      style={styles.paid}>
+                      Details Not Available
+                    </Badge>
+                  )}
+                </>
+              )}
+            </View>
           </View>
-        </View>
-        <View style={styles.bottomView}>
-          <Text style={{color: globalColors.Info, fontSize: 24}}>
-            Slots ({slot.sessions.length})
-          </Text>
-          <View style={styles.filterView}>
-            <Text style={{color: globalColors.Light}}>Filter By Age:</Text>
-            <SelectFilter
-              selectedFilter={selectedFilter}
-              setSelectedFilter={setSelectedFilter}
-            />
+          <View style={styles.bottomView}>
+            <Text style={{color: globalColors.Info, fontSize: 24}}>
+              Slots ({slot.sessions.length})
+            </Text>
+            <View style={styles.filterView}>
+              <Text style={{color: globalColors.Light}}>Filter By Age:</Text>
+              <SelectFilter
+                selectedFilter={selectedFilter}
+                setSelectedFilter={setSelectedFilter}
+              />
+            </View>
+            <DisplaySessionSlotsList sessionSlots={displaySessionSlots} />
           </View>
-          <DisplaySessionSlotsList sessionSlots={displaySessionSlots} />
-        </View>
+        </ScrollView>
       </View>
     </Modal>
   );
@@ -102,23 +110,30 @@ const styles = StyleSheet.create({
   textRight: {
     color: globalColors.Light,
     marginLeft: 10,
-    ...globalStyles.textTitle,
+    fontSize: 18,
     flexShrink: 1,
   },
   topHeaderText: {
     fontSize: 26,
     color: globalColors.Primary,
+    flexShrink: 1,
+  },
+  btnClose: {
+    marginLeft: 'auto',
+    marginRight: 5,
+    backgroundColor: globalColors.Danger,
+    padding: 5,
+    borderRadius: 7,
   },
   title: {
-    fontSize: 16,
+    fontSize: 18,
     color: globalColors.Warning,
-    ...globalStyles.textTitle,
   },
   topView: {
     marginVertical: 5,
     paddingVertical: 5,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     borderBottomColor: globalColors.Secondary,
     borderBottomWidth: 1,
   },

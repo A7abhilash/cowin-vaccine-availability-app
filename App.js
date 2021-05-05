@@ -141,8 +141,7 @@ const styles = StyleSheet.create({
   },
   bottomView: {
     flex: 0.1,
-    borderTopColor: globalColors.Gray,
-    borderTopWidth: 1,
     paddingTop: 5,
+    marginBottom: -10,
   },
 });
