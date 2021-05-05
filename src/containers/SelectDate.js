@@ -21,17 +21,22 @@ export default function SelectDate({date, setDate}) {
       <Modal visible={openModal} animationType="slide" transparent>
         <View style={styles.centeredView}>
           <View style={styles.innerView}>
-            <DatePicker
-              date={date}
-              onDateChange={setDate}
-              mode="date"
+            <View
               style={{
-                backgroundColor: globalColors.Gray,
-                height: 100,
-              }}
-              textColor={globalColors.Light}
-              fadeToColor="none"
-            />
+                alignItems: 'center',
+              }}>
+              <DatePicker
+                date={date}
+                onDateChange={setDate}
+                mode="date"
+                style={{
+                  backgroundColor: globalColors.Gray,
+                  height: 200,
+                }}
+                textColor={globalColors.Light}
+                fadeToColor="none"
+              />
+            </View>
             <Button
               mode="contained"
               color={globalColors.Info}
@@ -59,10 +64,8 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: 'flex-end',
-    alignItems: 'center',
   },
   innerView: {
-    marginHorizontal: 10,
     padding: 20,
     backgroundColor: globalColors.Gray,
     borderTopLeftRadius: 20,

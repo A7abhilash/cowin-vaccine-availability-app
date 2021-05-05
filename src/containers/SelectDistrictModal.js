@@ -21,32 +21,20 @@ export default function SelectDistrictModal({
     <Modal visible={openDistrictModal} animationType="slide" transparent>
       <View style={styles.centeredView}>
         <View style={styles.innerView}>
-          <ScrollView contentContainerStyle={styles.displayDistricts}>
+          <ScrollView>
             {districts.map(item =>
               item.district_name === district.district_name ? (
                 <TouchableOpacity
                   key={item.district_id}
                   style={styles.selected}>
-                  <Text
-                    style={{
-                      ...globalStyles.textSubTitle,
-                      color: globalColors.Light,
-                    }}>
-                    {item.district_name}
-                  </Text>
+                  <Text style={styles.text}>{item.district_name}</Text>
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
                   key={item.district_id}
                   onPress={() => setDistrict(item)}
                   style={styles.notSelected}>
-                  <Text
-                    style={{
-                      ...globalStyles.textSubTitle,
-                      color: globalColors.Light,
-                    }}>
-                    {item.district_name}
-                  </Text>
+                  <Text style={styles.text}>{item.district_name}</Text>
                 </TouchableOpacity>
               ),
             )}
@@ -70,15 +58,16 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   innerView: {
-    marginHorizontal: 10,
     padding: 20,
     backgroundColor: globalColors.Gray,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    height: '30%',
+    height: '50%',
   },
-  displayDistricts: {
-    alignItems: 'center',
+  text: {
+    ...globalStyles.textSubTitle,
+    color: globalColors.Light,
+    textAlign: 'center',
   },
   selected: {
     backgroundColor: globalColors.Primary,
