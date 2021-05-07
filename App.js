@@ -30,13 +30,19 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [vaccineSlots, setVaccineSlots] = useState(null);
-  const [states, setStates] = useState(null);
+  // const [states, setStates] = useState(null);
 
-  useEffect(() => {
-    fetchStates().then(data => {
-      setStates(data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetchStates()
+  //     .then(data => {
+  //       setStates(data);
+  //     })
+  //     .catch(e => {
+  //       Alert.alert('Error', "States coudn't be loaded, Please try again!!!", [
+  //         {text: 'OK'},
+  //       ]);
+  //     });
+  // }, []);
 
   useEffect(() => {
     // console.log(findBy);
@@ -102,7 +108,7 @@ const App = () => {
             <FindByDistrict
               district={district}
               setDistrict={setDistrict}
-              states={states}
+              // states={states}
             />
           )}
           <SelectDate date={date} setDate={setDate} />

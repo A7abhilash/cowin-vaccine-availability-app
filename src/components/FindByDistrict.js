@@ -1,25 +1,46 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {fetchDistricts} from '../api/fetchApi';
+import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {fetchDistricts, fetchStates} from '../api/fetchApi';
 import SelectDistrictModal from '../containers/SelectDistrictModal';
 import SelectStateModal from '../containers/SelectStateModal';
 import {globalColors, globalStyles} from '../styles/styles';
 
-export default function FindByDistrict({district, setDistrict, states}) {
+export default function FindByDistrict({district, setDistrict}) {
   const [districts, setDistricts] = useState(null);
-  const [selectedState, setSelectedState] = useState(
-    states !== null ? states[0] : null,
-  );
+  const [states, setStates] = useState(null);
+  const [selectedState, setSelectedState] = useState(null);
   const [openStateModal, setOpenStateModal] = useState(false);
   const [openDistrictModal, setOpenDistrictModal] = useState(false);
 
   useEffect(() => {
+    fetchStates()
+      .then(data => {
+        // console.log(data);
+        setStates(data);
+        setSelectedState(data[0]);
+      })
+      .catch(e => {
+        Alert.alert('Error', "States coudn't be loaded, Please try again!!!", [
+          {text: 'OK'},
+        ]);
+      });
+  }, []);
+
+  useEffect(() => {
     if (selectedState) {
       setDistricts(null);
-      fetchDistricts(selectedState.state_id).then(data => {
-        setDistricts(data);
-        setDistrict(data[0]);
-      });
+      fetchDistricts(selectedState.state_id)
+        .then(data => {
+          setDistricts(data);
+          setDistrict(data[0]);
+        })
+        .catch(e => {
+          Alert.alert(
+            'Error',
+            "Districts coudn't be loaded, Please try again!!!",
+            [{text: 'OK'}],
+          );
+        });
     }
   }, [selectedState, setDistrict]);
 
