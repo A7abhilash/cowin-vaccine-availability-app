@@ -30,19 +30,6 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [vaccineSlots, setVaccineSlots] = useState(null);
-  // const [states, setStates] = useState(null);
-
-  // useEffect(() => {
-  //   fetchStates()
-  //     .then(data => {
-  //       setStates(data);
-  //     })
-  //     .catch(e => {
-  //       Alert.alert('Error', "States coudn't be loaded, Please try again!!!", [
-  //         {text: 'OK'},
-  //       ]);
-  //     });
-  // }, []);
 
   useEffect(() => {
     // console.log(findBy);
@@ -105,11 +92,7 @@ const App = () => {
           {findBy === FIND_BY.PIN ? (
             <FindByPin pincode={pincode} setPincode={setPincode} />
           ) : (
-            <FindByDistrict
-              district={district}
-              setDistrict={setDistrict}
-              // states={states}
-            />
+            <FindByDistrict district={district} setDistrict={setDistrict} />
           )}
           <SelectDate date={date} setDate={setDate} />
           <Button onPress={findVaccines} color={globalColors.Success}>
